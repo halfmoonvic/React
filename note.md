@@ -1,8 +1,11 @@
-###### 1. 注释
+###### 1. jsx 使用注意事项
+在 元素当中运行js脚本，需要用{}包住以识别 
+
+###### 2. 注释
 双斜杠 放到普通的 js当中
 jsx当中注释 是 /**/
 
-###### 2. React.createElemetnt()
+###### 3. React.createElemetnt()
 ```
 const s = {'fontSize': '20px', 'color': 'blue'}
 const arr = ['aa', 'bb', 'cc']
@@ -44,8 +47,27 @@ html 中 生成的真实 dom
 </div>
 ```
 
-###### 3. this 绑定
+###### 4. this 绑定
 运行函数的时候最好能够 主动 bind(this)，这样在具体的函数当中才可以使用 this，即在这个函数当中才可以使用组件的其它属性
 
-###### 4. jsx 使用注意事项
-在 元素当中运行js脚本，需要用{}包住以识别 
+1. 在`constructor`当中执行`this.addSolider = this.addSolider.bind(this)`
+2. 在html处使用箭头函数的形式 `()=>this.addSolider()`
+3. 在html处 直接 `this.addSolider.bind(this)` 自己实验的，也可以
+
+###### 5. state 的修改
+this.setState修改state，记得返回新的state，而不是修改
+
+###### 6. `antd-mobile`
+1. `antd-mobile` 组件库兼容 react 与 react-native 两者的
+2. 按需引入
+`babel-plugin-import` 是一个用于按需加载组件代码和样式的babel插件
+```
+"babel": {
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    ["import", { "libraryName": "antd-mobile", "style": "css" }]
+  ]
+},
+```
