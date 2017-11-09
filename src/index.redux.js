@@ -20,3 +20,30 @@ export function AddGun() {
 export function removeGun() {
   return {type:REMOGE_GUN}
 }
+
+// 此为 reducer 函数
+export const calc = function (state=0, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case 'add':
+      return state + payload
+    case 'jian':
+      return state - payload
+    default:
+      return state
+  }
+}
+
+export const ADD = function (val) {
+  return {
+    type: 'add',
+    payload: val || 1
+  }
+}
+
+export const JIAN = function (val) {
+  return {
+    type: 'jian',
+    payload: val || 1
+  }
+}

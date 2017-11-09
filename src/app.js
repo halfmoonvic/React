@@ -1,5 +1,5 @@
 import React from 'react'
-import { AddGun } from './index.redux.js'
+import { ADD, JIAN } from './index.redux.js'
 
 class App extends React.Component {
   // constructor(props) {
@@ -11,7 +11,8 @@ class App extends React.Component {
     return (
       <div>
         <h1>现在有极强{num}把</h1>
-        <button onClick={() => store.dispatch(AddGun())}>申请武器</button>
+        <button onClick={() => store.dispatch(ADD(2))}>加</button>
+        <button onClick={() => store.dispatch(JIAN(2))}>减</button>
       </div>
     )
   }
