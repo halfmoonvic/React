@@ -14,9 +14,19 @@ export function counter(state=0, action) {
 }
 
 // action creator
-export function AddGun() {
+export function addGun() {
   return {type: ADD_GUN}
 }
 export function removeGun() {
   return {type:REMOGE_GUN}
+}
+// 延迟添加
+export function addGunAsync() {
+  // thunk插件的作用，这里可以返回函数
+  return dispatch => {
+    setTimeout(() => {
+      // 异步结束后，手动执行 dispatch
+      dispatch(addGun())
+    }, 2000)
+  }
 }

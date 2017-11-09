@@ -1,3 +1,8 @@
+### js 相关
+###### 1. 条件性的赋值
+`let a = flag ? 变量甲 : ()=>{}`  
+存在 则赋值变量甲，否则给一个空函数
+
 ###### 1. jsx 使用注意事项
 在 元素当中运行js脚本，需要用{}包住以识别 
 
@@ -71,3 +76,8 @@ this.setState修改state，记得返回新的state，而不是修改
   ]
 },
 ```
+
+###### 7. store.subscribe(render)
+`store.subscribe` 是刷新 render 函数
+
+
