@@ -1,15 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
-import {calc} from './index.redux'
+// redux 相关
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'     // 谷歌控制台工具
+import { Provider } from 'react-redux'  // redux 状态管理
+
 import App from './app'
+import { calc } from './index.redux'
 
-const store = createStore(calc)
 
-function render() {
-  ReactDOM.render(<App store={store} />, document.getElementById('root'))
-}
-render()
+// const store = createStore(calc)
+const store = createStore(calc, compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension ? window.devToolsExtension() : ()=>{}
+))
 
-store.subscribe(render)
-
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

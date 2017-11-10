@@ -1,18 +1,22 @@
 import React from 'react'
+import { connect } from 'react-redux'
+// import { ADD, JIAN } from './index.redux.js'
 import { ADD, JIAN } from './index.redux.js'
 
+@connect(
+  // 你要state什么属性放到props里
+  state=>({num: state}),
+  // 你要什么方法，放到props里，自动dispatch
+  {ADD, JIAN}
+)
+
 class App extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  // }
   render() {
-    const store = this.props.store
-    const num = store.getState()
     return (
       <div>
-        <h1>现在有极强{num}把</h1>
-        <button onClick={() => store.dispatch(ADD(2))}>加</button>
-        <button onClick={() => store.dispatch(JIAN(2))}>减</button>
+        <h1>现在有极强{this.props.num}把</h1>
+        <button onClick={this.props.ADD}>加</button>
+        <button onClick={this.props.JIAN}>减</button>
       </div>
     )
   }

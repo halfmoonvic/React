@@ -14,36 +14,34 @@ export function counter(state=0, action) {
 }
 
 // action creator
-export function AddGun() {
+export function addGun() {
   return {type: ADD_GUN}
 }
 export function removeGun() {
-  return {type:REMOGE_GUN}
+  return {type: REMOGE_GUN}
 }
 
 // 此为 reducer 函数
-export const calc = function (state=0, action) {
-  const { type, payload } = action;
+export const calc = function(state=0, action) {
+  const { type } = action;
   switch (type) {
     case 'add':
-      return state + payload
+      return state + 1
     case 'jian':
-      return state - payload
+      return state - 1
     default:
-      return state
+      return 0
   }
 }
 
-export const ADD = function (val) {
+export const ADD = function(val) {
   return {
-    type: 'add',
-    payload: val || 1
+    type: 'add'
   }
 }
 
 export const JIAN = function (val) {
   return {
-    type: 'jian',
-    payload: val || 1
+    type: 'jian'
   }
 }
