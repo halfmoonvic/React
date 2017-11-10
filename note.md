@@ -90,3 +90,22 @@ const store = createStore(counter, compose(
 ))
 ```
 
+###### 9.  babel-plugin-transform-decorators-legacy
+修饰完善 react-redux
+```
+"babel": {
+  "presets": [
+    "react-app"
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd-mobile",
+        "style": "css"
+      }
+    ],
+    "transform-decorators-legacy"
+  ]
+},
+```
