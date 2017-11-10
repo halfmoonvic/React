@@ -80,4 +80,13 @@ this.setState修改state，记得返回新的state，而不是修改
 ###### 7. store.subscribe(render)
 `store.subscribe` 是刷新 render 函数
 
+###### 8. redux-thunk 插件
+配合 谷歌插件的 redux 插件来显示数据什么的
+```
+const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : ()=>{}
+const store = createStore(counter, compose(
+  applyMiddleware(thunk),
+  reduxDevtools
+))
+```
 
