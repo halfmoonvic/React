@@ -1,22 +1,29 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-
-// redux 相关
-import { createStore } from 'redux'
-import { calc, addAction, removeAction } from './index.redux'
-
-// 组件
+import ReactDom from 'react-dom'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
 import App from './app'
+import { calc } from './index.redux'
 
-const store = createStore(calc)
+const store = createStore(calc, compose(
+  applyMiddleware(thunk),
+  window.devToolsExtension ? window.devToolsExtension() : ()=>{}
+))
 
-function render() {
-  ReactDOM.render(
-    <App store={store} propAdd={addAction} propRemove={removeAction} />,
-    document.getElementById('root')
-  )
-}
+// function render() {
+//   ReactDom.render(
+//     <App store={store} actionAdd={addGun} actionJian={removeGun} actionSync={addGunAsync} />,
+//     document.getElementById('root')
+//   )
+// }
+// render()
 
-render()
+// store.subscribe(render)
 
-store.subscribe(render)
+ReactDom.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)
