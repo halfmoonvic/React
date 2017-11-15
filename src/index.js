@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDom from 'react-dom'
 
 import { createStore } from 'redux'
-import { counter, addCounter, removeCounter } from './index.redux.js'
+import { counter, addCounter, removeCounter, chengCounter, chuCounter } from './index.redux.js'
 
 import App from './app'
 
@@ -13,7 +13,7 @@ const store = createStore(
 
 function render() {
   ReactDom.render(
-    <App store={store} propAdd={addCounter} propRemove={removeCounter} />,
+    <App store={store} propAdd={addCounter} propRemove={removeCounter} propCheng={chengCounter} propChu={chuCounter} />,
     document.getElementById('root')
   )
 }
