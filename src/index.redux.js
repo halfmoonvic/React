@@ -22,20 +22,22 @@ export const actions = {
   removeAction: (val = 1) => ({type: SET_REMOVE})
 }
 
-function addFn(state = 1, action) {
+function addFn(state, action) {
   const { type, payload } = action
   switch (type) {
     case SET_ADD:
+      console.log(state, type)
       return state + 1
     default:
-      return 10
+      return 0
   }
 }
 
-function removeFn(state = 1, action) {
+function removeFn(state, action) {
   const { type, payload } = action
   switch (type) {
     case SET_REMOVE:
+      console.log(state, type)
       return state - 1
     default:
       return 10
@@ -46,14 +48,16 @@ function defaultState(state = 1, action) {
   return 0
 }
 
-// export const calc = function (state, action) {
-//   return {
-//     addFn: addFn(state, action),
-//     removeFn: removeFn(state, action)
-//   }
-// }
-export const calc = combineReducers({
-  defaultState,
-  addFn,
-  removeFn
-})
+// 因为每次点击都是传的固定值1。所以返回的结果也固定是2
+export const calc = function (state, action) {
+  return {
+    defaultState: defaultState(),
+    addFn: addFn(1, action),
+    removeFn: removeFn(1, action)
+  }
+}
+// export const calc = combineReducers({
+//   defaultState,
+//   addFn,
+//   removeFn
+// })
