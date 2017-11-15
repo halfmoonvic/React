@@ -1,32 +1,22 @@
-const ADD_GUN = '加机关枪'
-const REMOGE_GUN = '减机关枪'
-
-// reducer
-export function counter(state=0, action) {
-  switch(action.type) {
-    case ADD_GUN:
-      return state + 1
-    case REMOGE_GUN:
-      return state - 1
-    default:
-      return 10
-  }
-}
+const ADD_TYPE = 'increase'
+const REMOGE_TYPE = 'decrease'
 
 // action creator
-export function addGun() {
-  return {type: ADD_GUN}
+export function addCounter(val = 1) {
+  return { type: ADD_TYPE, payload: val }
 }
-export function removeGun() {
-  return {type:REMOGE_GUN}
+export function removeCounter(val = 1) {
+  return { type: REMOGE_TYPE, payload: val }
 }
-// 延迟添加
-export function addGunAsync() {
-  // thunk插件的作用，这里可以返回函数
-  return dispatch => {
-    setTimeout(() => {
-      // 异步结束后，手动执行 dispatch
-      dispatch(addGun())
-    }, 2000)
+
+// reducer
+export function counter(state = 0, action) {
+  switch (action.type) {
+    case ADD_TYPE:
+      return state + action.payload
+    case REMOGE_TYPE:
+      return state - action.payload
+    default:
+      return 0
   }
 }
