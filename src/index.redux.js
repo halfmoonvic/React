@@ -24,6 +24,7 @@ export function chuCounter(val = 1) {
 export function addRemoveCounter(state, action) {
   switch (action.type) {
     case ADD_TYPE:
+      console.log(action)
       return state + action.payload
     case REMOGE_TYPE:
       return state - action.payload
