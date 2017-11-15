@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import App from './app'
 import { calc } from './index.redux'
+
+import App from './app'
 
 const store = createStore(calc, compose(
   applyMiddleware(thunk),

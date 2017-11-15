@@ -71,3 +71,9 @@ this.setState修改state，记得返回新的state，而不是修改
   ]
 },
 ```
+
+
+--------------------
+
+### Redux
+将 reducer 拆分成不同的 reduce，每个子reduce都在维护着各自的 state。这些state由最大的reduce来创建的。每个子reduce仅是维护着 state 的一个属性。不要妄想两个子reduce间去修改同一个值，因为他们是各自维护的

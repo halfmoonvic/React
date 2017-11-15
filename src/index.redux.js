@@ -15,17 +15,11 @@ const SET_REMOVE = 'jian'
 //       return 10
 //   }
 // }
-// action
-export const addAction = function(val = 1) {
-  return {
-    type: SET_ADD
-  }
-}
-// action
-export const removeAction = function (val = 1) {
-  return {
-    type: SET_REMOVE
-  }
+
+// actions
+export const actions = {
+  addAction: (val = 1) => ({type: SET_ADD}),
+  removeAction: (val = 1) => ({type: SET_REMOVE})
 }
 
 function addFn(state = 1, action) {
@@ -48,6 +42,10 @@ function removeFn(state = 1, action) {
   }
 }
 
+function defaultState(state = 1, action) {
+  return 0
+}
+
 // export const calc = function (state, action) {
 //   return {
 //     addFn: addFn(state, action),
@@ -55,6 +53,7 @@ function removeFn(state = 1, action) {
 //   }
 // }
 export const calc = combineReducers({
+  defaultState,
   addFn,
   removeFn
 })
