@@ -77,10 +77,14 @@ this.setState修改state，记得返回新的state，而不是修改
 },
 ```
 
-###### 7. store.subscribe(render)
+
+-------------------
+### Redux
+
+###### 1. store.subscribe(render)
 `store.subscribe` 是刷新 render 函数
 
-###### 8. redux-thunk 插件
+###### 2. redux-thunk 插件
 配合 谷歌插件的 redux 插件来显示数据什么的
 ```
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : ()=>{}
@@ -90,7 +94,7 @@ const store = createStore(counter, compose(
 ))
 ```
 
-###### 9.  babel-plugin-transform-decorators-legacy
+###### 3.  babel-plugin-transform-decorators-legacy
 修饰完善 react-redux
 ```
 "babel": {
@@ -109,3 +113,6 @@ const store = createStore(counter, compose(
   ]
 },
 ```
+
+###### 4. 拆分 Reduce
+将 reducer 拆分成不同的 reduce，每个子reduce都在维护着各自的 state。这些state由最大的reduce来创建的。每个子reduce仅是维护着 state 的一个属性。不要妄想两个子reduce间去修改同一个值，因为他们是各自维护的。另外拆分的Reduce只能通过 connect来调用吧
