@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDom from 'react-dom'
 
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { counter } from './index.redux.js'
 // import { counter, addCounter, removeCounter, chengCounter, chuCounter } from './index.redux.js'
 
@@ -10,7 +11,10 @@ import App from './app'
 
 const store = createStore(
   counter,
-  window.devToolsExtension ? window.devToolsExtension() : ()=>{}   // 使谷歌扩展redux插件能够记录变化
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : ()=>{}
+  )
 )
 
 // function render() {

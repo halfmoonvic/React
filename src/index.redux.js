@@ -7,10 +7,14 @@ const CHU_TYPE = 'chu'
 
 // action creator
 export function addCounter(val = 1) {
-  return { type: ADD_TYPE, payload: val }
+  return dispatch => dispatch({ type: ADD_TYPE, payload: val })
 }
 export function removeCounter(val = 1) {
-  return { type: REMOGE_TYPE, payload: val }
+  return dispatch => {
+    setTimeout(() => {
+      dispatch({ type: REMOGE_TYPE, payload: val })
+    }, 2000)
+  }
 }
 export function chengCounter(val = 1) {
   return { type: CHENG_TYPE, payload: val }
