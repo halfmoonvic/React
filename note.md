@@ -77,8 +77,14 @@ this.setState修改state，记得返回新的state，而不是修改
 },
 ```
 
+###### 7. 声明周期
+1. componentWillMount → render → componentDidMount  
+在 componentDidMount 中获取数据之前，render 如果已经事先使用了state当中的数据了，那么需要注意下注意下属性的读取，是否有此值
 
 -------------------
+
+-------------------
+
 ### Redux
 
 ###### 1. store.subscribe(render)

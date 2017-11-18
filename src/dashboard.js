@@ -20,7 +20,6 @@ function Qibinglian() {
 class Dashboard extends React.Component {
   render() {
     const match = this.props.match
-    console.log(match)
     const redirectToLogin = <Redirect to='/login'></Redirect>
     const app = (
       <div>

@@ -13,19 +13,19 @@ const User = mongoose.model('user', new mongoose.Schema({
 }))
 
 // 新增数据
-// User.create({
-//   user: 'cs',
-//   age: 27
-// }, function (err, doc) {
-//   if (!err) {
-//     console.log(doc)
-//   } else {
-//     console.log(err)
-//   }
-// })
+User.create({
+  user: 'cs',
+  age: 27
+}, function (err, doc) {
+  if (!err) {
+    console.log(doc)
+  } else {
+    console.log(err)
+  }
+})
 
 // 删除数据
-// User.remove({_id: '5a0038d4d6dcdd35f4cc0502'}, function (err, doc) {
+// User.remove({user: 'cs'}, function (err, doc) {
 //   console.log(doc)
 // })
 // 更新数据

@@ -1,3 +1,4 @@
+import './config'
 import React from 'react'
 import ReactDom from 'react-dom'
 
@@ -19,7 +20,7 @@ const store = createStore(reducers, compose(
   window.devToolsExtension ? window.devToolsExtension() : ()=>{}
 ))
 
-console.log(store.getState())
+// console.log(store.getState())
 
 
 // 登录
