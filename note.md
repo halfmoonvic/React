@@ -58,6 +58,7 @@ html 中 生成的真实 dom
 1. 在`constructor`当中执行`this.addSolider = this.addSolider.bind(this)`
 2. 在html处使用箭头函数的形式 `()=>this.addSolider()`
 3. 在html处 直接 `this.addSolider.bind(this)` 自己实验的，也可以
+4. 推荐使用方式1，性能方面更好。使用箭头函数的话，每次都会传入一个新的对象，在constructor里面的话，每次传入的都是之前定义好的
 
 ###### 5. state 的修改
 this.setState修改state，记得返回新的state，而不是修改
