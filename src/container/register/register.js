@@ -3,6 +3,14 @@ import Logo from 'component/logo/logo'
 // eslint-disable-next-line
 import { List, InputItem, WingBlank, WhiteSpace, Button, Radio } from 'antd-mobile'
 
+import { connect } from 'react-redux'
+import { register } from '../../redux/user.redux'
+
+@connect(
+  state => state.user,
+  {register}
+)
+
 class Register extends React.Component{
   constructor(props) {
     super(props)
@@ -18,6 +26,7 @@ class Register extends React.Component{
     })
   }
   handleRegister() {
+    this.props.register(this.state)
     console.log(this.state)
   }
   render() {
@@ -25,6 +34,7 @@ class Register extends React.Component{
     return(
       <div>
         <Logo></Logo>
+        {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
         <List>
           <InputItem onChange={v=>this.handleChange('user', v)}>用户名</InputItem>
           <WhiteSpace />
