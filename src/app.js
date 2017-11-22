@@ -1,36 +1,28 @@
+/**** React应用依赖组件 ****/
+// react
 import React from 'react'
-import { connect } from 'react-redux'
-import { addGun, removeGun, addGunAsync } from './index.redux.js'
-
-
-// 将 state属性 给到 props
-// const mapStatetoProps = (state) => {
-//   return {num: state}
-// }
-// 将方法给到 props
-// const actionCreators = { addGun, removeGun, addGunAsync }
-// App = connect(mapStatetoProps, actionCreators)(App)
-// @connect(mapStatetoProps, actionCreators)
-@connect(
-  // 你要state什么属性放到props里
-  state=>({num: state.counter}),
-  // 你要什么方法，放到props里，自动dispatch
-  {addGun, removeGun, addGunAsync}
-)
+// import ReactDom from 'react-dom'
+// router
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+/******* 第三方 组件库 *****/
+/**** 本地公用变量 公用函数 **/
+/******* 本地 公用组件 *****/
+/**** 当前组件的 子组件等 ***/
+import Login from 'container/login/login'
+import Register from 'container/register/register'
 
 class App extends React.Component {
   render() {
-    console.log('渲染ing')
-    return (
-      <div>
-        <h1>现在有极强{this.props.num}把</h1>
-        <button onClick={this.props.addGun}>申请武器</button>
-        <button onClick={ this.props.removeGun}>上交武器</button>
-        <button onClick={this.props.addGunAsync}>拖两天在给</button>
-      </div>
+    return(
+      <Router>
+        <Switch>
+          <Route path='/login' component={Login}></Route>
+          <Route path='/register' component={Register}></Route>
+          <Redirect to='/login'></Redirect>
+        </Switch>
+      </Router>
     )
   }
 }
-
 
 export default App
