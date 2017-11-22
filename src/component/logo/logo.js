@@ -3,17 +3,19 @@
 import React, { Component } from 'react'
 /******* 第三方 组件库 *****/
 /**** 本地公用变量 公用函数 **/
+import './logo.scss'
 /******* 本地 公用组件 *****/
-import Logo from 'component/logo/logo'
 /**** 当前组件的 子组件等 ***/
+import logoImg from './job.png'
 
-
-class Login extends Component {
+class Logo extends Component {
   render() {
     return (
-      <Logo></Logo>
+      <div className="logo-container">
+        <img src={logoImg} alt=""/>
+      </div>
     )
   }
 }
 
-export default Login
+export default Logo

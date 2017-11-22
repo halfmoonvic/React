@@ -1,6 +1,7 @@
 import { TIMEOUT, ERR_OK, baseURL, STATUS } from 'assets/js/config'
 import axios from 'axios'
 import qs from 'qs'
+import { Toast } from 'antd-mobile'
 
 /**
  * 将中文转换为 ASCII 码
@@ -31,6 +32,7 @@ const xhr = axios.create({
 
 //添加请求拦截器
 xhr.interceptors.request.use(function(config) {
+  Toast.loading('加载中', 0)
   // 如果请求是 post 的请求 用qs 配置下 请求参数
   if (config.method === 'post') {
     config.data = qs.stringify(config.data)
@@ -58,6 +60,7 @@ xhr.interceptors.request.use(function(config) {
 
 // 添加响应拦截器
 xhr.interceptors.response.use(function(response) {
+  Toast.hide()
   if (response.data[STATUS] === ERR_OK) {
     return response.data
   } else {

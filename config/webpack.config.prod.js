@@ -102,6 +102,7 @@ module.exports = {
       'container': resolveDir('src/container'),
       'redux': resolveDir('src/redux'),
       'common': resolveDir('src/common'),
+      'api': resolveDir('src/api'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
