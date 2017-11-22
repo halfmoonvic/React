@@ -7,10 +7,10 @@ import qs from 'qs'
  * @param  {Object} params {key: '汉字'}
  * @return {Object}        {key: '%E6%B1%89%E5%AD%97'}
  */
-export const handleChinese = function (params) {
+function handleChinese(params) {
   const pattern = new RegExp("[\u4E00-\u9FA5]+") // 正则匹配中文字符
   let newObj = {}
-  for(let i in params) {
+  for (let i in params) {
     if (pattern.test(params[i])) {
       newObj[i] = encodeURI(params[i])
     } else {
@@ -21,7 +21,7 @@ export const handleChinese = function (params) {
 }
 
 // axios 配置
-export const xhr = axios.create({
+const xhr = axios.create({
   baseURL: baseURL.dev,
   timeout: TIMEOUT,
   headers: {
@@ -51,7 +51,6 @@ xhr.interceptors.request.use(function(config) {
     // config.params = {}
     return config
   }
-
 }, function(error) {
   //请求错误时做些事
   return Promise.reject(error)
@@ -72,3 +71,5 @@ xhr.interceptors.response.use(function(response) {
   console.error('Request failed')
   return Promise.reject(error)
 })
+
+export default xhr

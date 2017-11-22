@@ -220,6 +220,22 @@ module.exports = {
             ),
             // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
           },
+          {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader" // 将 JS 字符串生成为 style 节点
+            }, {
+                loader: "css-loader", // 将 CSS 转化成 CommonJS 模块
+                options: {
+                  sourceMap: true
+                }
+            }, {
+                loader: "sass-loader", // 将 Sass 编译成 CSS
+                options: {
+                  sourceMap: true
+                }
+            }]
+          },
           // "file" loader makes sure assets end up in the `build` folder.
           // When you `import` an asset, you get its filename.
           // This loader doesn't use a "test" so it will catch all modules
