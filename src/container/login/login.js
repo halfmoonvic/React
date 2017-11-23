@@ -1,6 +1,11 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
+// redux
+import { connect } from 'react-redux'
+import { login } from 'store/actions'
+// router
+import { Redirect } from 'react-router'
 /******* 第三方 组件库 *****/
 // antd
 import { Button, List, InputItem, WingBlank, WhiteSpace } from 'antd-mobile'
@@ -9,27 +14,52 @@ import { Button, List, InputItem, WingBlank, WhiteSpace } from 'antd-mobile'
 import Logo from 'component/logo/logo'
 /**** 当前组件的 子组件等 ***/
 
+@connect(
+  state => state.user,
+  { login }
+)
 
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.register = this.register.bind(this)
+    this.state = {
+      user: '',
+      pwd: ''
+    }
+
+    this.handleLogin = this.handleLogin.bind(this)
+    this.handleRegister = this.handleRegister.bind(this)
   }
-  register() {
+  handleChange(key, v) {
+    this.setState({
+      [key]: v
+    })
+  }
+  handleLogin() {
+    this.props.login(this.state)
+    console.log(this.props)
+  }
+  handleRegister() {
     this.props.history.push('/register')
   }
   render() {
     return (
       <div>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo />
+        {this.props.msg ? <div className='err-msg'>{this.props.msg}</div> : null}
         <WingBlank>
           <List>
-            <InputItem>用户名</InputItem>
+            <InputItem
+              onChange={v=>this.handleChange('user', v)}
+            >用户名</InputItem>
             <WhiteSpace />
-            <InputItem>密码</InputItem>
-            <Button type="primary">登录</Button>
+            <InputItem
+              onChange={v=>this.handleChange('pwd', v)}
+            >密码</InputItem>
+            <Button type="primary" onClick={this.handleLogin}>登录</Button>
             <WhiteSpace />
-            <Button onClick={this.register} type="primary">注册</Button>
+            <Button type="primary" onClick={this.handleRegister}>注册</Button>
           </List>
         </WingBlank>
       </div>

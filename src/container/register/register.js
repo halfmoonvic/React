@@ -4,6 +4,8 @@ import React from 'react'
 // redux
 import { connect } from 'react-redux'
 import { register } from 'store/actions.js'
+// router
+import { Redirect } from 'react-router-dom'
 // import ReactDom from 'react-dom'
 /******* 第三方 组件库 *****/
 // antd
@@ -36,13 +38,13 @@ class Register extends React.Component {
     })
   }
   handleRegister() {
-    // console.log(this.state)
     this.props.register(this.state)
   }
   render() {
     const {RadioItem} = Radio
     return (
       <div>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo></Logo>
         {this.props.msg ? <div className='err-msg'>{this.props.msg}</div> : null}
         <List>
