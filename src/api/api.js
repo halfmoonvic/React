@@ -1,4 +1,4 @@
-import { TIMEOUT, ERR_OK, baseURL, STATUS } from 'assets/js/config'
+import { TIMEOUT, ERR_OK, baseURL, STATUS } from './config.js'
 import axios from 'axios'
 import qs from 'qs'
 import { Toast } from 'antd-mobile'
@@ -8,6 +8,7 @@ import { Toast } from 'antd-mobile'
  * @param  {Object} params {key: '汉字'}
  * @return {Object}        {key: '%E6%B1%89%E5%AD%97'}
  */
+// eslint-disable-next-line
 function handleChinese(params) {
   const pattern = new RegExp("[\u4E00-\u9FA5]+") // 正则匹配中文字符
   let newObj = {}
@@ -25,9 +26,9 @@ function handleChinese(params) {
 const xhr = axios.create({
   baseURL: baseURL.dev,
   timeout: TIMEOUT,
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  }
+  // headers: {
+  //   'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  // }
 })
 
 //添加请求拦截器
@@ -35,7 +36,7 @@ xhr.interceptors.request.use(function(config) {
   Toast.loading('加载中', 0)
   // 如果请求是 post 的请求 用qs 配置下 请求参数
   if (config.method === 'post') {
-    config.data = qs.stringify(config.data)
+    // config.data = qs.stringify(config.data)
     return config
   }
 

@@ -95,7 +95,7 @@ module.exports = {
       'react-native': 'react-native-web',
       'component': resolveDir('src/component'),
       'container': resolveDir('src/container'),
-      'redux': resolveDir('src/redux'),
+      'store': resolveDir('src/store'),
       'common': resolveDir('src/common'),
       'api': resolveDir('src/api'),
     },
