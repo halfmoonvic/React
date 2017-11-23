@@ -2,12 +2,19 @@
 // core
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { loadData } from 'store/actions'
 /******* 第三方 组件库 *****/
 import xhr from 'api/api'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
 @withRouter
+
+@connect(
+  null,
+  { loadData }
+)
 
 class AuthRoute extends Component {
   componentDidMount() {
@@ -19,6 +26,7 @@ class AuthRoute extends Component {
         let code = res.data.code
         if (code === 0) {
           // 有登录信息的
+          this.props.loadData(res.data.data)
         } else {
           this.props.history.push('/login')
         }

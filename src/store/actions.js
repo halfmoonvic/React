@@ -45,3 +45,10 @@ export function login({user, pwd}) {
     })
   }
 }
+
+export function loadData(userinfo) {
+  return {
+    type: types.LODD_DATA,
+    payload: userinfo
+  }
+}

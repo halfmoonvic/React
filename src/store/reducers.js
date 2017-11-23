@@ -7,7 +7,6 @@ const initState = {
   msg: '',
   isAuth: false,
   user: '',
-  pwd: '',
   type: ''
 }
 
@@ -28,6 +27,11 @@ export function user(state = initState, action) {
         isAuth: true,
         redirectTo: getRedirectPath(payload),
         ...payload
+      }
+    case types.LODD_DATA:
+      return {
+        ...state,
+        payload
       }
     case types.ERROR_MSG:
       return {
