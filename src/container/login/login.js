@@ -8,11 +8,10 @@ import { connect } from 'react-redux'
 import Logo from 'component/logo/logo'
 
 @connect(
-  state => state.user,
-  { login }
+  state => state.user, { login }
 )
 
-class Login extends React.Component{
+class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -34,7 +33,7 @@ class Login extends React.Component{
     this.props.login(this.state)
   }
   render() {
-    return(
+    return (
       <div>
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo></Logo>

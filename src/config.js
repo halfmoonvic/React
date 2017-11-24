@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Toast } from 'antd-mobile'
 
+axios.defaults.timeout = 3000
 
 // 拦截请求
 axios.interceptors.request.use(function (config) {
