@@ -12,6 +12,7 @@ const initState = {
 
 export function user(state = initState, action) {
   const { type, payload, msg } = action
+  console.log(action)
   switch (type) {
     case types.REGISTER_SUCCESS:
       return {
@@ -31,7 +32,7 @@ export function user(state = initState, action) {
     case types.LODD_DATA:
       return {
         ...state,
-        payload
+        userinfo: action.userinfo
       }
     case types.ERROR_MSG:
       return {
