@@ -1,6 +1,7 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 /******* 第三方 组件库 *****/
 import { Grid, List } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
@@ -8,6 +9,9 @@ import { Grid, List } from 'antd-mobile'
 /**** 当前组件的 子组件等 ***/
 
 class AvatarSelector extends Component {
+  static propsTypes = {
+    selectAvatar: PropTypes.func
+  }
   constructor(props) {
     super(props)
     this.state = {}

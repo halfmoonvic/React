@@ -18,6 +18,7 @@ import AuthRoute from 'component/authroute/authroute'
 import Login from 'container/login/login'
 import Register from 'container/register/register'
 import BossInfo from 'container/bossinfo/bossinfo'
+import GeniusInfo from 'container/geniusinfo/geniusinfo'
 
 import './index.css'
 
@@ -39,6 +40,7 @@ ReactDom.render(
         <AuthRoute></AuthRoute>
         <Switch>
           <Route path="/bossinfo" component={BossInfo}></Route>
+          <Route path="/geniusinfo" component={GeniusInfo}></Route>
           <Route path='/boss' component={Boss}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
