@@ -3,9 +3,13 @@ import * as types from './action-types.js'
 
 const errMsg = msg => ({ type: types.ERROR_MSG, msg: msg })
 
-const registerSuccess = data => ({ type: types.REGISTER_SUCCESS, payload: data})
-
-const loginSuccess = data => ({ type: types.LOGIN_SUCCESS, payload: data })
+const authSuccess = obj => {
+  const { pwd, ...state } = obj
+  return {
+    type: types.AUTH_SUCCESS,
+    payload: state
+  }
+}
 
 export function register({ user, pwd, repeatpwd, type }) {
   if (!user || !pwd || !repeatpwd) {
@@ -22,14 +26,14 @@ export function register({ user, pwd, repeatpwd, type }) {
       type,
       pwd
     }).then(res => {
-      dispatch(registerSuccess({user, pwd, type}))
+      dispatch(authSuccess({ user, pwd, type }))
     }).catch(err => {
       dispatch(errMsg(err.data.msg))
     })
   }
 }
 
-export function login({user, pwd}) {
+export function login({ user, pwd }) {
   if (!user || !pwd) {
     return errMsg('必须输入用户名密码')
   }
@@ -38,9 +42,8 @@ export function login({user, pwd}) {
       user,
       pwd
     }).then(res => {
-      dispatch(loginSuccess(res.data.data))
+      dispatch(authSuccess(res.data.data))
     }).catch(err => {
-      console.log(err)
       dispatch(errMsg(err.data.msg))
     })
   }
@@ -50,5 +53,15 @@ export function loadData(userinfo) {
   return {
     type: types.LODD_DATA,
     userinfo: userinfo
+  }
+}
+
+export function update(data) {
+  return dispatch => {
+    xhr.post('/user/update', data).then(res => {
+      dispatch(authSuccess(res.data.data))
+    }).catch(err => {
+      dispatch(errMsg(err.data.msg))
+    })
   }
 }

@@ -4,18 +4,18 @@ const Router = express.Router()
 const models = require('./model')
 const User = models.getModel('user')
 
-const _filter = {'pwd': 0, '__v': 0}
+const _filter = { 'pwd': 0, '__v': 0 }
 
-Router.get('/list', function (req, res) {
+Router.get('/list', function(req, res) {
   // User.remove({}, function (err, doc) {})
-  User.find({}, function (err, doc) {
+  User.find({}, function(err, doc) {
     return res.json(doc)
   })
 })
 
-Router.post('/register', function (req, res) {
-  const {user, pwd, type} = req.body
-  User.findOne({user}, function (err, doc) {
+Router.post('/register', function(req, res) {
+  const { user, pwd, type } = req.body
+  User.findOne({ user }, function(err, doc) {
     if (doc) {
       return res.json({
         status: 202,
@@ -26,52 +26,33 @@ Router.post('/register', function (req, res) {
       })
     }
 
-    const userModel = new User({user, type, pwd: md5pwd(pwd)})
-    userModel.save(function (err, doc) {
-      if (err) {
+    const userModel = new User({ user, type, pwd: md5pwd(pwd) })
+    userModel.save(function(err, doc) {
+        if (err) {
+          return res.json({
+            status: 500,
+            data: {
+              code: 1,
+              msg: '后台出错'
+            }
+          })
+        }
+
+        const { _id } = doc
+        res.cookie('userid', _id)
         return res.json({
-          status: 500,
+          status: 200,
           data: {
-            code: 1,
-            msg: '后台出错'
+            code: 0,
           }
         })
-      }
-
-      const {_id} = doc
-      res.cookie('userid', _id)
-      return res.json({
-        status: 200,
-        data: {
-          code: 0,
-        }
       })
-    })
-    // User.create({user, pwd: md5pwd(pwd), type}, function (err, doc) {
-    //   if (err) {
-    //     return res.json({
-    //       status: 500,
-    //       data: {
-    //         code: 1,
-    //         msg: '后台出错'
-    //       }
-    //     })
-    //   }
-    //   const {_id} = doc
-    //   res.cookie('userid', _id)
-    //   return res.json({
-    //     status: 200,
-    //     data: {
-    //       code: 0,
-    //     }
-    //   })
-    // })
   })
 })
 
-Router.post('/login', function (req, res) {
-  const {user, pwd} = req.body
-  User.findOne({user, pwd: md5pwd(pwd)}, _filter, function (err, doc) {
+Router.post('/login', function(req, res) {
+  const { user, pwd } = req.body
+  User.findOne({ user, pwd: md5pwd(pwd) }, _filter, function(err, doc) {
     if (!doc) {
       return res.json({
         status: 501,
@@ -84,17 +65,54 @@ Router.post('/login', function (req, res) {
     if (doc) {
       res.cookie('userid', doc._id)
       return res.json({
-       status: 200,
-       data: {
-         code: 0,
-         data: doc
-       }
+        status: 200,
+        data: {
+          code: 0,
+          data: doc
+        }
       })
     }
   })
 })
 
-Router.get('/info', function (req, res) {
+Router.post('/update', function(req, res) {
+  const userid = req.cookies.userid
+  if (!userid) {
+    return res.json({
+      status: 501,
+      data: {
+        msg: '会话过期',
+        code: 1
+      }
+    })
+  }
+  const body = req.body
+  User.findByIdAndUpdate(userid, body, function (err, doc) {
+    if (err) {
+      return {
+        status: 500,
+        data: {
+          msg: '后台服务器错误',
+          code: 1
+        }
+      }
+    }
+    const data = Object.assign({}, {
+      user: doc.user,
+      type: doc.type
+    }, body)
+
+    return res.json({
+      status: 200,
+      data: {
+        code: 0,
+        data
+      }
+    })
+  })
+})
+
+Router.get('/info', function(req, res) {
   const { userid } = req.cookies
   if (!userid) {
     return res.json({
@@ -104,7 +122,7 @@ Router.get('/info', function (req, res) {
       }
     })
   }
-  User.findOne({_id: userid}, _filter, function (err, doc) {
+  User.findOne({ _id: userid }, _filter, function(err, doc) {
     if (err) {
       return res.json({
         status: 500,
@@ -128,7 +146,7 @@ Router.get('/info', function (req, res) {
 
 function md5pwd(pwd) {
   const salt = 'imooc_feioa438992&(*$@Q@j~~'
-  return utils.md5(utils.md5(pwd+salt))
+  return utils.md5(utils.md5(pwd + salt))
 }
 
 module.exports = Router

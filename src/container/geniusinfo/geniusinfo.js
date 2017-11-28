@@ -17,7 +17,7 @@ import AvatarSelector from 'component/avatar-selector/avatar-selector'
   state => state.user, { update }
 )
 
-class Bossinfo extends Component {
+class GeniusInfo extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,7 +39,7 @@ class Bossinfo extends Component {
     return (
       <div>
         {redirect && redirect !== path ? (<Redirect to={this.props.redirectTo}></Redirect>) : null}
-        <NavBar mode="dark">BOSS完善信息页</NavBar>
+        <NavBar mode="dark">牛人完善信息页</NavBar>
         <AvatarSelector
           selectAvatar={
             (imgname) => {
@@ -51,16 +51,10 @@ class Bossinfo extends Component {
         ></AvatarSelector>
         <InputItem
           onChange={v=>this.handleChange('title', v)}
-        >招聘职位</InputItem>
-        <InputItem
-          onChange={v=>this.handleChange('company', v)}
-        >公司名称</InputItem>
-        <InputItem
-          onChange={v=>this.handleChange('money', v)}
-        >职位薪资</InputItem>
+        >求职岗位</InputItem>
         <TextareaItem
           rows={3}
-          title='职位要求'
+          title='个人简介'
           autoHeight
           onChange={v=>this.handleChange('desc', v)}
         ></TextareaItem>
@@ -73,4 +67,4 @@ class Bossinfo extends Component {
   }
 }
 
-export default Bossinfo
+export default GeniusInfo

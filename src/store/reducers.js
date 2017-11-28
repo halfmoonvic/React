@@ -7,18 +7,9 @@ export function user(state = states.initUserState, action) {
   const { type, payload, msg } = action
   console.log(action)
   switch (type) {
-    case types.REGISTER_SUCCESS:
+    case types.AUTH_SUCCESS:
       return {
         ...state,
-        msg: '',
-        isAuth: true,
-        redirectTo: getRedirectPath(payload),
-        ...payload
-      }
-    case types.LOGIN_SUCCESS:
-      return {
-        ...state,
-        isAuth: true,
         redirectTo: getRedirectPath(payload),
         ...payload
       }
