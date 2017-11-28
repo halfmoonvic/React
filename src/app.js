@@ -8,9 +8,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
+import AuthRoute from 'component/authroute/authroute'
 import Login from 'container/login/login'
 import Register from 'container/register/register'
-import AuthRoute from 'component/authroute/authroute'
+import BossInfo from 'container/bossinfo/bossinfo'
 
 class App extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class App extends React.Component {
       <Router>
         <div>
           <AuthRoute></AuthRoute>
+          <Route path='/bossinfo' component={BossInfo}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/register' component={Register}></Route>
         </div>

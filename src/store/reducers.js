@@ -1,16 +1,9 @@
+import * as states from './state'
 import * as types from './action-types'
 
 import { getRedirectPath } from 'common/js/util'
 
-const initState = {
-  redirectTo: '',
-  msg: '',
-  isAuth: false,
-  user: '',
-  type: ''
-}
-
-export function user(state = initState, action) {
+export function user(state = states.initUserState, action) {
   const { type, payload, msg } = action
   console.log(action)
   switch (type) {
@@ -32,7 +25,7 @@ export function user(state = initState, action) {
     case types.LODD_DATA:
       return {
         ...state,
-        userinfo: action.userinfo
+        ...action.userinfo
       }
     case types.ERROR_MSG:
       return {
