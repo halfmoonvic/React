@@ -12,14 +12,7 @@ import NavLinkBar from 'component/navlink/navlink'
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
 import Boss from 'component/boss/boss'
-
-// function Boss() {
-//   return <h2>Boss首页</h2>
-// }
-
-function Genius() {
-  return <h2>牛人首页</h2>
-}
+import Genius from 'component/genius/genius'
 
 function Msg() {
   return <h2>消息列表</h2>

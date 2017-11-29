@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUserList } from './../../redux/chatuser.redux'
 /******* 第三方 组件库 *****/
-import { Card, WingBlank } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 import UserCard from 'component/usercard/usercard'
@@ -15,15 +14,9 @@ import UserCard from 'component/usercard/usercard'
   state => state.chatuser, { getUserList }
 )
 
-class Boss extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: []
-    }
-  }
+class Genius extends Component {
   componentDidMount() {
-    this.props.getUserList('genius')
+    this.props.getUserList('boss')
   }
   render() {
     return (
@@ -32,4 +25,4 @@ class Boss extends Component {
   }
 }
 
-export default Boss
+export default Genius
