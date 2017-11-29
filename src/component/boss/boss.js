@@ -2,11 +2,18 @@
 // core
 import React, { Component } from 'react'
 import { Card, WhiteSpace, WingBlank } from 'antd-mobile'
+// redux
+import { connect } from 'react-redux'
+import { getUserList } from './../../redux/chatuser.redux'
 /******* 第三方 组件库 *****/
 import axios from 'axios'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
+
+@connect(
+  state => state.chatuser, { getUserList }
+)
 
 class Boss extends Component {
   constructor(props) {
@@ -16,18 +23,12 @@ class Boss extends Component {
     }
   }
   componentDidMount() {
-    axios.get('/user/list?type=genius').then(res => {
-      if (res.data.code === 0) {
-        this.setState({
-          data: res.data.data
-        })
-      }
-    })
+    this.props.getUserList('genius')
   }
   render() {
     return (
       <WingBlank>
-        {this.state.data.map(v=>(
+        {this.props.userlist.map(v=>(
           v.avatar?<Card key={v._id}>
             <Card.Header
               title={v.user}
@@ -35,7 +36,7 @@ class Boss extends Component {
               extra={<span>{v.title}</span>}
             ></Card.Header>
             <Card.Body>{v.desc.split('\n').map(v=>(
-              <div>{v}</div>
+              <div key={v}>{v}</div>
             ))}</Card.Body>
           </Card>:null
         ))}
