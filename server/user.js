@@ -8,8 +8,15 @@ const _filter = { 'pwd': 0, '__v': 0 }
 
 Router.get('/list', function(req, res) {
   // User.remove({}, function (err, doc) {})
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  const { type } = req.query
+  User.find({ type }, function(err, doc) {
+    return res.json({
+      status: 200,
+      data: {
+        code: 0,
+        data: doc
+      }
+    })
   })
 })
 
@@ -28,25 +35,25 @@ Router.post('/register', function(req, res) {
 
     const userModel = new User({ user, type, pwd: md5pwd(pwd) })
     userModel.save(function(err, doc) {
-        if (err) {
-          return res.json({
-            status: 500,
-            data: {
-              code: 1,
-              msg: '后台出错'
-            }
-          })
-        }
-
-        const { _id } = doc
-        res.cookie('userid', _id)
+      if (err) {
         return res.json({
-          status: 200,
+          status: 500,
           data: {
-            code: 0,
+            code: 1,
+            msg: '后台出错'
           }
         })
+      }
+
+      const { _id } = doc
+      res.cookie('userid', _id)
+      return res.json({
+        status: 200,
+        data: {
+          code: 0,
+        }
       })
+    })
   })
 })
 
@@ -87,7 +94,7 @@ Router.post('/update', function(req, res) {
     })
   }
   const body = req.body
-  User.findByIdAndUpdate(userid, body, function (err, doc) {
+  User.findByIdAndUpdate(userid, body, function(err, doc) {
     if (err) {
       return {
         status: 500,

@@ -11,6 +11,8 @@ const authSuccess = obj => {
   }
 }
 
+const setUserList = (data) => ({ type: types.SET_USER_LIST, payload: data })
+
 export function register({ user, pwd, repeatpwd, type }) {
   if (!user || !pwd || !repeatpwd) {
     return errMsg('用户名密码不能为空')
@@ -60,6 +62,20 @@ export function update(data) {
   return dispatch => {
     xhr.post('/user/update', data).then(res => {
       dispatch(authSuccess(res.data.data))
+    }).catch(err => {
+      dispatch(errMsg(err.data.msg))
+    })
+  }
+}
+
+export function getUserList(type) {
+  return dispatch => {
+    xhr.get('/user/list', {
+      params: {
+        type
+      }
+    }).then(res => {
+      dispatch(setUserList(res.data.data))
     }).catch(err => {
       dispatch(errMsg(err.data.msg))
     })

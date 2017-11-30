@@ -5,7 +5,6 @@ import { getRedirectPath } from 'common/js/util'
 
 export function user(state = states.initUserState, action) {
   const { type, payload, msg } = action
-  console.log(action)
   switch (type) {
     case types.AUTH_SUCCESS:
       return {
@@ -23,6 +22,19 @@ export function user(state = states.initUserState, action) {
         ...state,
         isAuth: false,
         msg: msg
+      }
+    default:
+      return state
+  }
+}
+
+export function chatuser(state = states.initChatListState, action) {
+  const { type, payload } = action
+  switch (type) {
+    case types.SET_USER_LIST:
+      return {
+        ...state,
+        userlist: payload
       }
     default:
       return state
