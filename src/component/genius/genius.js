@@ -1,17 +1,28 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getUserList } from 'store/actions'
 /******* 第三方 组件库 *****/
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
+import UserCard from 'component/usercard/usercard'
 /**** 当前组件的 子组件等 ***/
 
-class Genius extends Component {
+@connect(
+  state => state, { getUserList }
+)
+
+class boss extends Component {
+  componentDidMount() {
+    this.props.getUserList('genius')
+  }
   render() {
-    return(
-      <div>Genius-页面</div>
+    const userList = this.props.chatuser.userlist
+    return (
+      <UserCard userlist={userList}></UserCard>
     )
   }
 }
 
-export default Genius
+export default boss
