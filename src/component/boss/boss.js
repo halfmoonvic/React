@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUserList } from './../../redux/chatuser.redux'
 /******* 第三方 组件库 *****/
-import { Card, WingBlank } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 import UserCard from 'component/usercard/usercard'

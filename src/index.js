@@ -43,6 +43,7 @@ ReactDom.render(
           <Route path="/bossinfo" component={BossInfo}></Route>
           <Route path="/geniusinfo" component={GeniusInfo}></Route>
           <Route path="/login" component={Login}></Route>
+          <Redirect path="/" exact to={'/login'}></Redirect>
           <Route path="/register" component={Register}></Route>
           <Route component={Dashboard}></Route>
         </Switch>
