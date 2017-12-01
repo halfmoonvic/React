@@ -11,19 +11,15 @@ import NavLinkBar from 'component/navlink/navlink'
 /**** 当前组件的 子组件等 ***/
 import Boss from 'component/boss/boss'
 import Genius from 'component/genius/genius'
+import User from 'component/user/user'
 
 function Msg() {
   return <h2>消息列表</h2>
 }
 
-function User(argument) {
-  return <h2>个人中心</h2>
-}
-
 @connect(
   state => state
 )
-
 class Dashboard extends Component {
   render() {
     const user = this.props.user
