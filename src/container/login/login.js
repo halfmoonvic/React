@@ -10,6 +10,7 @@ import { Redirect } from 'react-router'
 // antd
 import { Button, List, InputItem, WingBlank, WhiteSpace } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
+import handleForm from 'common/js/mixin'
 /******* 本地 公用组件 *****/
 import Logo from 'component/logo/logo'
 /**** 当前组件的 子组件等 ***/
@@ -18,25 +19,25 @@ import Logo from 'component/logo/logo'
   state => state.user,
   { login }
 )
-
+@handleForm
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: '',
-      pwd: ''
-    }
+    // this.state = {
+    //   user: '',
+    //   pwd: ''
+    // }
 
     this.handleLogin = this.handleLogin.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
   }
-  handleChange(key, v) {
-    this.setState({
-      [key]: v
-    })
-  }
+  // handleChange(key, v) {
+  //   this.setState({
+  //     [key]: v
+  //   })
+  // }
   handleLogin() {
-    this.props.login(this.state)
+    this.props.login(this.props.state)
   }
   handleRegister() {
     this.props.history.push('/register')
@@ -50,11 +51,11 @@ class Login extends Component {
         <WingBlank>
           <List>
             <InputItem
-              onChange={v=>this.handleChange('user', v)}
+              onChange={v=>this.props.handleChange('user', v)}
             >用户名</InputItem>
             <WhiteSpace />
             <InputItem
-              onChange={v=>this.handleChange('pwd', v)}
+              onChange={v=>this.props.handleChange('pwd', v)}
             >密码</InputItem>
             <Button type="primary" onClick={this.handleLogin}>登录</Button>
             <WhiteSpace />
