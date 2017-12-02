@@ -1,9 +1,8 @@
 /**** React应用依赖组件 ****/
 // react
 import React from 'react'
-// import ReactDom from 'react-dom'
 // router
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 /******* 第三方 组件库 *****/
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
@@ -22,6 +21,7 @@ class App extends React.Component {
         <div>
           <AuthRoute></AuthRoute>
           <Switch>
+            <Redirect path='/' exact to='/login'></Redirect>
             <Route path='/geniusinfo' component={GeniusInfo}></Route>
             <Route path='/bossinfo' component={BossInfo}></Route>
             <Route path='/login' component={Login}></Route>

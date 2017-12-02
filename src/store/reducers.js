@@ -12,6 +12,11 @@ export function user(state = states.initUserState, action) {
         redirectTo: getRedirectPath(payload),
         ...payload
       }
+    case types.SET_LOGOUT:
+      return {
+        ...states.initUserState,
+        redirectTo: '/login'
+      }
     case types.LODD_DATA:
       return {
         ...state,

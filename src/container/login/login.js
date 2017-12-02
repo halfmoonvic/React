@@ -37,7 +37,6 @@ class Login extends Component {
   }
   handleLogin() {
     this.props.login(this.state)
-    console.log(this.props)
   }
   handleRegister() {
     this.props.history.push('/register')
@@ -45,7 +44,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+        {this.props.redirectTo && this.props.redirectTo !== '/login' ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo />
         {this.props.msg ? <div className='err-msg'>{this.props.msg}</div> : null}
         <WingBlank>

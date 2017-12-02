@@ -1,6 +1,7 @@
 import xhr from 'api/api'
 import * as types from './action-types.js'
 
+// action-creator
 const errMsg = msg => ({ type: types.ERROR_MSG, msg: msg })
 
 const authSuccess = obj => {
@@ -13,6 +14,9 @@ const authSuccess = obj => {
 
 const setUserList = (data) => ({ type: types.SET_USER_LIST, payload: data })
 
+export const setLogout = () => ({ type: types.SET_LOGOUT })
+
+// async-action-creator
 export function register({ user, pwd, repeatpwd, type }) {
   if (!user || !pwd || !repeatpwd) {
     return errMsg('用户名密码不能为空')

@@ -2,17 +2,35 @@
 // core
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { setLogout } from 'store/actions'
+import { Redirect } from 'react-router-dom'
 /******* 第三方 组件库 *****/
-import { Result, List, WhiteSpace } from 'antd-mobile';
+import browserCookies from 'browser-cookies'
+import { Result, List, WhiteSpace, Modal } from 'antd-mobile';
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
 
 @connect(
-  state => state
+  state => state, { setLogout }
 )
 
 class User extends Component {
+  constructor(props) {
+    super(props)
+    this.logout = this.logout.bind(this)
+  }
+  logout() {
+    const { alert } = Modal
+    alert('注销登录', '', [
+      { text: 'Cancel', onPress: () => console.log('cancel'), style: 'default' }, {
+        text: 'OK', onPress: () => {
+          browserCookies.erase('userid')
+          this.props.setLogout()
+        }
+      }
+    ])
+  }
   render() {
     const { user } = this.props
     const { Item } = List
@@ -26,7 +44,7 @@ class User extends Component {
         ></Result>
         <List renderHeader={() => '简介'}>
           <Item>
-            {user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}{user.title}
+            {user.title}
             {user.desc.split('\n').map(v => (
               <Brief key={v}>{v}</Brief>
             ))}
@@ -35,10 +53,10 @@ class User extends Component {
         </List>
         <WhiteSpace></WhiteSpace>
         <List>
-          <Item>退出登录</Item>
+          <Item onClick={this.logout}>退出登录</Item>
         </List>
       </div>
-    ) : null
+    ) : <Redirect to={user.redirectTo} />
   }
 }
 
