@@ -1,6 +1,7 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getUserList } from './../../redux/chatuser.redux'
@@ -12,16 +13,23 @@ import { Card, WingBlank } from 'antd-mobile'
 @connect(
   state => state.chatuser, { getUserList }
 )
+@withRouter
 
 class UserCard extends Component {
   static propTypes = {
     userlist: PropTypes.array.isRequired
   }
+  handleClick(v) {
+    this.props.history.push(`/chat/${v.user}`)
+  }
   render() {
     return (
       <WingBlank>
         {this.props.userlist.map(v=>(
-          v.avatar?<Card key={v._id}>
+          v.avatar?<Card
+              key={v._id}
+              onClick={() => this.handleClick(v)}
+              >
             <Card.Header
               title={v.user}
               thumb={require(`../img/${v.avatar}.png`)}
