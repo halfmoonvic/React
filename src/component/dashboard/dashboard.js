@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Switch, Route } from 'react-router-dom'
 // redux
 import { connect } from 'react-redux'
+import { getMsgList, getRecvMsg } from '../../redux/chat.redux'
 /******* 第三方 组件库 *****/
 import { NavBar } from 'antd-mobile'
 import NavLinkBar from 'component/navlink/navlink'
@@ -20,10 +21,14 @@ function Msg() {
 }
 
 @connect(
-  state => state
+  state => state, { getMsgList, getRecvMsg }
 )
 
 class Dashboard extends Component {
+  componentDidMount() {
+    this.props.getMsgList()
+    this.props.getRecvMsg()
+  }
   render() {
     const { pathname } = this.props.location
     const user = this.props.user
