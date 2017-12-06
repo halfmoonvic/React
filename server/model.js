@@ -18,7 +18,7 @@ const models = {
     'money': { type: String }
   },
   chat: {
-    chat_id: { type: String, require: true },
+    chatid: { type: String, require: true },
     from: { type: String, require: true },
     to: { type: String, require: true },
     read: { type: Boolean, default: false },

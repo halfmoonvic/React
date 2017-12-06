@@ -25,16 +25,17 @@ export function chat(state = initState, action) {
         ...state,
         users: payload.users,
         chatmsg: payload.msgs,
-        unread: payload.msgs.filter(v => !v.read).length
+        unread: payload.msgs.filter(v => !v.read && v.to === payload.userid).length
       }
     case SET_MSG_RECV:
+      const n = payload.to === action.userid ? 1 : 0
       return {
         ...state,
         chatmsg: [
           ...state.chatmsg,
           payload
         ],
-        unread: state.unread + 1
+        unread: state.unread + n
       }
     default:
       return state
@@ -42,16 +43,17 @@ export function chat(state = initState, action) {
 }
 
 // action-creator
-export const setMsgList = ({msgs, users}) => ({ type: SET_MSG_LIST, payload: { msgs, users } })
+export const setMsgList = ({msgs, users, userid}) => ({ type: SET_MSG_LIST, payload: { msgs, users, userid } })
 
-export const setMsgRecv = (msg) => ({ type: SET_MSG_RECV, payload: msg })
+export const setMsgRecv = (msg, userid) => ({userid, type: SET_MSG_RECV, payload: msg })
 
 // async-action-creator
 export function getMsgList() {
-  return dispatch => {
+  return (dispatch, getState) => {
     axios.get('/user/getmsglist').then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(setMsgList(res.data))
+        const userid = getState().user._id
+        dispatch(setMsgList(res.data, res.data.users, userid))
       }
     })
   }
@@ -64,10 +66,10 @@ export function getSendMsg({ from, to, msg }) {
 }
 
 export function getRecvMsg() {
-  return dispatch => {
+  return (dispatch, getState) => {
     socket.on('recvmsg', function(data) {
-      console.log('recvmsg', data)
-      dispatch(setMsgRecv(data))
+      const userid = getState().user._id
+      dispatch(setMsgRecv(data, userid))
     })
   }
 }

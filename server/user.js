@@ -91,7 +91,7 @@ Router.get('/info', function(req, res) {
 
 // Router.get('/getmsglist', function(req, res) {
 //   const user = req.cookies.user
-//     // Chat.remove({}, function (err, doc) {})
+    // Chat.remove({}, function (err, doc) {})
 //   User.find({}, function(e, userdoc) {
 //     let users = {}
 //     userdoc.forEach(v => {
@@ -120,6 +120,7 @@ Router.get('/getmsglist', function(req, res) {
     userdoc.forEach(v => {
       users[v._id] = { name: v.user, avatar: v.avatar }
     })
+    // Chat.remove({}, function(err, doc) {})
     Chat.find({ '$or': [{ from: user }, { to: user }] }, function(err, doc) {
       if (!err) {
         return res.json({ code: 0, msgs: doc, users: users })
