@@ -12,6 +12,7 @@ const SET_MSG_READ = 'SET_MSG_READ'
 // state
 const initState = {
   chatmsg: [],
+  users: {},
   unread: 0
 }
 
@@ -22,8 +23,9 @@ export function chat(state = initState, action) {
     case SET_MSG_LIST:
       return {
         ...state,
-        chatmsg: payload,
-        unread: payload.filter(v => !v.read).length
+        users: payload.users,
+        chatmsg: payload.msgs,
+        unread: payload.msgs.filter(v => !v.read).length
       }
     case SET_MSG_RECV:
       return {
@@ -40,7 +42,7 @@ export function chat(state = initState, action) {
 }
 
 // action-creator
-export const setMsgList = (msgs) => ({ type: SET_MSG_LIST, payload: msgs })
+export const setMsgList = ({msgs, users}) => ({ type: SET_MSG_LIST, payload: { msgs, users } })
 
 export const setMsgRecv = (msg) => ({ type: SET_MSG_RECV, payload: msg })
 
@@ -49,7 +51,7 @@ export function getMsgList() {
   return dispatch => {
     axios.get('/user/getmsglist').then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(setMsgList(res.data.msgs))
+        dispatch(setMsgList(res.data))
       }
     })
   }

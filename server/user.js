@@ -11,7 +11,7 @@ const _filter = { 'pwd': 0, '__v': 0 }
 Router.get('/list', function(req, res) {
   const { type } = req.query
     // User.remove({}, function (err, doc) {})
-  User.find({type}, function(err, doc) {
+  User.find({ type }, function(err, doc) {
     return res.json({
       code: 0,
       data: doc
@@ -89,16 +89,43 @@ Router.get('/info', function(req, res) {
   })
 })
 
-Router.get('/getmsglist', function (req, res) {
-  const user = req.cookies.user
-  // Chat.remove({}, function (err, doc) {})
-  Chat.find({}, function (err, doc) {
-    if (!err) {
-      return res.json({
-        code: 0,
-        msgs: doc
-      })
-    }
+// Router.get('/getmsglist', function(req, res) {
+//   const user = req.cookies.user
+//     // Chat.remove({}, function (err, doc) {})
+//   User.find({}, function(e, userdoc) {
+//     let users = {}
+//     userdoc.forEach(v => {
+//       users[v._id] = {
+//         name: v.user,
+//         avatar: v.avatar
+//       }
+//     })
+//     Chat.find({ '$or': [{ from: user }, { to: user }] }, function(err, doc) {
+//       if (!err) {
+//         return res.json({
+//           code: 0,
+//           msgs: doc,
+//           users: users
+//         })
+//       }
+//     })
+//   })
+// })
+
+Router.get('/getmsglist', function(req, res) {
+  const user = req.cookies.userid
+
+  User.find({}, function(e, userdoc) {
+    let users = {}
+    userdoc.forEach(v => {
+      users[v._id] = { name: v.user, avatar: v.avatar }
+    })
+    Chat.find({ '$or': [{ from: user }, { to: user }] }, function(err, doc) {
+      if (!err) {
+        return res.json({ code: 0, msgs: doc, users: users })
+      }
+    })
+
   })
 })
 
