@@ -10,6 +10,7 @@ import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
 import { getChatId } from './../../util'
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
+// eslint-disable-next-line
 const socket = io('ws://localhost:9093')
 
 @connect(

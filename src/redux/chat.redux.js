@@ -4,9 +4,10 @@ const socket = io('ws://localhost:9093')
 
 // 获取聊天列表
 const SET_MSG_LIST = 'SET_MSG_LIST'
-  // 读取信息
+// 读取信息
 const SET_MSG_RECV = 'SET_MSG_RECV'
-  // 标识已读
+// 标识已读
+// eslint-disable-next-line
 const SET_MSG_READ = 'SET_MSG_READ'
 
 // state
