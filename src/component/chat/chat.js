@@ -2,7 +2,7 @@
 // core
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getMsgList, getSendMsg, getRecvMsg } from '../../redux/chat.redux'
+import { getMsgList, getSendMsg, getRecvMsg, getMsgRead } from '../../redux/chat.redux'
 /******* 第三方 组件库 *****/
 import io from 'socket.io-client'
 import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile'
@@ -14,7 +14,7 @@ import { getChatId } from './../../util'
 const socket = io('ws://localhost:9093')
 
 @connect(
-  state => state, { getMsgList, getSendMsg, getRecvMsg }
+  state => state, { getMsgList, getSendMsg, getRecvMsg, getMsgRead }
 )
 class Chat extends Component {
   constructor(props) {
@@ -26,16 +26,16 @@ class Chat extends Component {
     }
   }
   componentDidMount() {
-    // if (!this.props.chat.chatmsg.length) {
-    this.props.getMsgList()
-    this.props.getRecvMsg()
-      // }
-      // socket.on('recvmsg', (data) => {
-      //   this.setState({
-      //     msg: [...this.state.msg, data.text]
-      //   })
-      //   console.log(this.state.msg)
-      // })
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgList()
+      this.props.getRecvMsg()
+    }
+    const to = this.props.match.params.user
+    this.props.getMsgRead(to)
+  }
+  componentWillUnmount() {
+    const to = this.props.match.params.user
+    this.props.getMsgRead(to)
   }
   handleSubmit() {
     // socket.emit('sendmsg', { text: this.state.text })

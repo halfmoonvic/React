@@ -4,10 +4,10 @@ const socket = io('ws://localhost:9093')
 
 // 获取聊天列表
 const SET_MSG_LIST = 'SET_MSG_LIST'
-// 读取信息
+  // 读取信息
 const SET_MSG_RECV = 'SET_MSG_RECV'
-// 标识已读
-// eslint-disable-next-line
+  // 标识已读
+  // eslint-disable-next-line
 const SET_MSG_READ = 'SET_MSG_READ'
 
 // state
@@ -38,15 +38,24 @@ export function chat(state = initState, action) {
         ],
         unread: state.unread + n
       }
+    case SET_MSG_READ:
+      const { from, num } = payload
+      return {
+        ...state,
+        chatmsg: state.chatmsg.map(v => ({...v, read: from === v.from ? true : v.read })),
+        unread: state.unread - num
+      }
     default:
       return state
   }
 }
 
 // action-creator
-export const setMsgList = ({msgs, users, userid}) => ({ type: SET_MSG_LIST, payload: { msgs, users, userid } })
+export const setMsgList = ({ msgs, users, userid }) => ({ type: SET_MSG_LIST, payload: { msgs, users, userid } })
 
-export const setMsgRecv = (msg, userid) => ({userid, type: SET_MSG_RECV, payload: msg })
+export const setMsgRecv = (msg, userid) => ({ userid, type: SET_MSG_RECV, payload: msg })
+
+export const setMsgRead = ({ from, userid, num }) => ({ type: SET_MSG_READ, payload: { from, userid, num } })
 
 // async-action-creator
 export function getMsgList() {
@@ -71,6 +80,17 @@ export function getRecvMsg() {
     socket.on('recvmsg', function(data) {
       const userid = getState().user._id
       dispatch(setMsgRecv(data, userid))
+    })
+  }
+}
+
+export function getMsgRead(from) {
+  return (dispatch, getState) => {
+    axios.post('/user/readmsg', { from }).then(res => {
+      const userid = getState().user._id
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(setMsgRead({ userid, from, num: res.data.num }))
+      }
     })
   }
 }
