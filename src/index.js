@@ -4,13 +4,13 @@ import ReactDom from 'react-dom'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
-import { counter } from './index.redux.js'
+import redecers from './store'
 // import { counter, addCounter, removeCounter, chengCounter, chuCounter } from './index.redux.js'
 
 import App from './app'
 
 const store = createStore(
-  counter,
+  redecers,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : ()=>{}
