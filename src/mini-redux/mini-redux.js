@@ -24,3 +24,24 @@ export function createStore(reducer) {
   // return 值既是 createStore 创建的 store
   return { getState, subscribe, dispatch }
 }
+
+// creators { setAdd, setRemove }
+function bindActionCreator(creator, dispatch) {
+  return (...args) => dispatch(creator(...args))
+}
+
+export function bindActionCreators(creators, dispatch) {
+  // 方式一
+  // let bound = {}
+  // Object.keys(creators).forEach(v => {
+  //   let creator = creators[v]
+  //   bound[v] = bindActionCreator(creator, dispatch)
+  // })
+  // return bound
+
+  // 方式二
+  return Object.keys(creators).reduce((ret, item) => {
+    ret[item] = bindActionCreator(creators[item], dispatch)
+    return ret
+  }, {})
+}
