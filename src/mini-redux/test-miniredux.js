@@ -1,4 +1,4 @@
-import { createStore } from './mini-redux.js'
+// import { createStore } from './mini-redux.js'
 
 const SET_ADD = 'SET_ADD'
 const SET_REMOVE = 'SET_REMOVE'
@@ -26,20 +26,20 @@ export function setRemove(val) {
   return { type: SET_REMOVE, payload: val }
 }
 
-// 创建实例
-const store = createStore(counter)
-const init = store.getState()
-console.log(`初始化: ${init}`)
+// // 创建实例
+// const store = createStore(counter)
+// const init = store.getState()
+// console.log(`初始化: ${init}`)
 
-function listener() {
-  const current = store.getState()
-  console.log(`执行过程: ${current}`)
-}
+// function listener() {
+//   const current = store.getState()
+//   console.log(`执行过程: ${current}`)
+// }
 
-store.subscribe(listener)
+// store.subscribe(listener)
 
-store.dispatch({type: 'SET_ADD', payload: 2})
-store.dispatch({type: 'SET_ADD', payload: 2})
-store.dispatch({type: 'SET_REMOVE', payload: 2})
-store.dispatch({type: 'SET_REMOVE', payload: 2})
-store.dispatch({type: 'SET_REMOVE', payload: 2})
+// store.dispatch({type: 'SET_ADD', payload: 2})
+// store.dispatch({type: 'SET_ADD', payload: 2})
+// store.dispatch({type: 'SET_REMOVE', payload: 2})
+// store.dispatch({type: 'SET_REMOVE', payload: 2})
+// store.dispatch({type: 'SET_REMOVE', payload: 2})

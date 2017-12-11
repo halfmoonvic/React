@@ -20,5 +20,7 @@ export function createStore(reducer) {
 
   // 外面在执行 createStore(reducer) 之后，即可通过 store.getState()，拿到初始值，说明 currentState 已被赋值，即 dispatch 函数执行过一次了，也就是下面这个
   dispatch({ type: '@@init' })
+
+  // return 值既是 createStore 创建的 store
   return { getState, subscribe, dispatch }
 }
