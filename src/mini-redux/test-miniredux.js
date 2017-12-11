@@ -26,6 +26,23 @@ export function setRemove(val) {
   return { type: SET_REMOVE, payload: val }
 }
 
+// async-action-creator
+export function getAdd(val) {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(setAdd(val))
+    }, 1000)
+  }
+}
+
+export function getRemove(val) {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(setRemove(val))
+    }, 1000)
+  }
+}
+
 // // 创建实例
 // const store = createStore(counter)
 // const init = store.getState()

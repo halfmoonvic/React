@@ -4,7 +4,7 @@ import React from 'react'
 // import './mini-redux/test-miniredux.js'
 
 import { connect } from './mini-redux/mini-react-redux.js'
-import { setAdd, setRemove } from './mini-redux/test-miniredux.js'
+import { setAdd, setRemove, getAdd, getRemove } from './mini-redux/test-miniredux.js'
 
 class App extends React.Component {
   render() {
@@ -14,13 +14,15 @@ class App extends React.Component {
         <h2>现在的数值是 {this.props.num}</h2>
         <button onClick={() => this.props.setAdd(2)}>加</button>
         <button onClick={() => this.props.setRemove(3)}>减</button>
+        <button onClick={() => this.props.getAdd(3)}>过1秒加3</button>
+        <button onClick={() => this.props.getRemove(2)}>过1秒减2</button>
       </div>
     )
   }
 }
 
 App = connect(
-  state => ({ num: state }), { setAdd, setRemove }
+  state => ({ num: state }), { setAdd, setRemove, getAdd, getRemove }
 )(App)
 
 export default App
