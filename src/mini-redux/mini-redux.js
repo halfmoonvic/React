@@ -18,6 +18,7 @@ export function createStore(reducer, enhancer) {
   function dispatch(action) {
     currentState = reducer(currentState, action)
     // 每次执行执行一次 store.dispatch, 就会自动调用 push 进 currentListeners 当中的 函数。 listener 作用基本就是 监视着 currentState 的变化，currentState 发生变化即会调用 调用 scriber() 勾子
+    // 实质上是外部调用更新 dispatch勾子，发送 action，调用相应的 reducer函数。从而 更新了 currentState, currentState 更新之后 顺便执行订阅当中的勾子函数，上面的注释并不是很准确
     currentListeners.forEach(v => v())
     return action
   }
@@ -49,6 +50,7 @@ export function applyMiddleware(middleware) {
 
 // creators { setAdd, setRemove }
 function bindActionCreator(creator, dispatch) {
+  // 返回的是一个函数，这个函数届时可以接受的参数就是 这些 ...args
   return (...args) => dispatch(creator(...args))
 }
 
