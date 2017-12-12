@@ -27,6 +27,16 @@ arr.map(v => {
 arr.map(v => ({...v, read: true})),
 ```
 
+###### 4.`...args 参数形式`
+```
+function fn(...args) {
+  console.log(...args)
+}
+fn(1, 2, 3)
+```
+形参 ...args 将传入的三个参数 1， 2， 3 变成了一个数组
+console.log() 处，使用对象展开运算符，将数组[1, 2, 3]，展开了
+
 ###### 1. jsx 使用注意事项
 在 元素当中运行js脚本，需要用{}包住以识别 
 
@@ -77,15 +87,20 @@ html 中 生成的真实 dom
 ```
 
 ###### 4. this 绑定
-运行函数的时候最好能够 主动 bind(this)，这样在具体的函数当中才可以使用 this，即在这个函数当中才可以使用组件的其它属性
+1. 运行函数的时候最好能够 主动 bind(this)，这样在具体的函数当中才可以使用 this，即在这个函数当中才可以使用组件的其它属性。 
+2. this 的绑定在 constructor(props) 当中进行，如果是在 元素当中 onClick 直接绑定的话，那么每次更新渲染就会 bind 一次 this，消耗性能。而如果采用 `()=>fn()`的形式，则会在每次 render 的时候重新生成一个函数。为什么呢？看下面：
+3. 1 === 1 判断为真，而 {num: 1} === {num: 1}  则为false，两个对象则内存里地址不一样的
+4. 类似的 诸如 `<p style={color: 'red'}></p>` 等形式也是不推荐的，每次render都是生成一个新的对象。避免既是将其声明为一个变量，传递变量过去
 
 1. 在`constructor`当中执行`this.addSolider = this.addSolider.bind(this)`
 2. 在html处使用箭头函数的形式 `()=>this.addSolider()`
 3. 在html处 直接 `this.addSolider.bind(this)` 自己实验的，也可以
 4. 推荐使用方式1，性能方面更好。使用箭头函数的话，每次都会传入一个新的对象，在constructor里面的话，每次传入的都是之前定义好的
 
-###### 5. state 的修改
-this.setState修改state，记得返回新的state，而不是修改
+###### 5. 为什么使用 setState 而不是直接 this.state.num = 1
+this.setState修改state，记得返回新的state，而不是修改  
+setState 有一个队列的机制，setState是一个异步的，如果对 this.state.num 执行了多次的累加，那么也只是 调用了一次 render  
+不要在 render 函数当中 执行 setState。 setState 会执行调用render()，render() 在调用 setState 的话，会造成循环调用
 
 ###### 6. `antd-mobile`
 1. `antd-mobile` 组件库兼容 react 与 react-native 两者的
