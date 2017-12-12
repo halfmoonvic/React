@@ -4,7 +4,7 @@ import React from 'react'
 // import './mini-redux/test-miniredux.js'
 
 import { connect } from './mini-redux/mini-react-redux.js'
-import { setAdd, setRemove, getAdd, getRemove } from './mini-redux/test-miniredux.js'
+import { setAdd, setRemove, getAdd, getRemove, arrAdd } from './mini-redux/test-miniredux.js'
 
 class App extends React.Component {
   render() {
@@ -16,13 +16,14 @@ class App extends React.Component {
         <button onClick={() => this.props.setRemove(3)}>减</button>
         <button onClick={() => this.props.getAdd(3)}>过1秒加3</button>
         <button onClick={() => this.props.getRemove(2)}>过1秒减2</button>
+        <button onClick={() => this.props.arrAdd(1)}>数组性质的action，连续加1三次，最后一次为异步</button>
       </div>
     )
   }
 }
 
 App = connect(
-  state => ({ num: state }), { setAdd, setRemove, getAdd, getRemove }
+  state => ({ num: state }), { setAdd, setRemove, getAdd, getRemove, arrAdd }
 )(App)
 
 export default App

@@ -43,6 +43,11 @@ export function getRemove(val) {
   }
 }
 
+// array-creator
+export function arrAdd(val) {
+  return [setAdd(1), setAdd(1), getAdd(1)]
+}
+
 // // 创建实例
 // const store = createStore(counter)
 // const init = store.getState()
