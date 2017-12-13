@@ -3,21 +3,11 @@
 import React, { Component } from 'react'
 
 
-// 通过 shouldComponentUpdate 来判断是否 执行 render
-class Test extends Component {
+// 通过 React.PureComponent 来直接进行 性能优化，只在必要时更新 Test 组件。无数据变化，根本就没有更新Test组件，更不用说 reder() 勾子了
+class Test extends React.PureComponent {
   constructor(props) {
     super(props)
     console.log(props)
-  }
-  shouldComponentUpdate(nextProps, nextState) {
-    // 这个值相当于最新的值
-    console.log(nextProps)
-    // 这个值相当于老的值
-    console.log(this.props.num)
-    if (nextProps.num === this.props.num) {
-      return false
-    }
-    return true
   }
   render() {
     return (
