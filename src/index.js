@@ -8,11 +8,13 @@ import { counter } from './mini-redux/test-miniredux.js'
 
 import App from './app'
 
+import Performance from './test-performance.js'
+
 const store = createStore(counter, applyMiddleware(thunk, arrThunk))
 
 ReactDom.render(
   <Provider store={store}>
-    <App />
+    <Performance></Performance>
   </Provider>,
   document.getElementById('root')
 )
