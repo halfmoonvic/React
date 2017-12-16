@@ -1,5 +1,8 @@
+import io from 'socket.io-client'
 import xhr from 'api/api'
 import * as types from './action-types.js'
+
+const socket = io('ws://localhost:9093')
 
 // action-creator
 const errMsg = msg => ({ type: types.ERROR_MSG, msg: msg })
@@ -82,6 +85,21 @@ export function getUserList(type) {
       dispatch(setUserList(res.data.data))
     }).catch(err => {
       dispatch(errMsg(err.data.msg))
+    })
+  }
+}
+
+export function setMsgList(msgs) {
+  return {
+    type: types.SET_MSG_LIST,
+    payload: msgs
+  }
+}
+
+export function getMsgList() {
+  return dispatch => {
+    xhr.get('/user/getmsglist').then(res => {
+      dispatch(setMsgList(res.data.msgs))
     })
   }
 }

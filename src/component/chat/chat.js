@@ -1,15 +1,18 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getMsgList } from './../../store/actions.js'
 /******* 第三方 组件库 *****/
-import io from 'socket.io-client'
 import { List, InputItem } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
 /******* 本地 公用组件 *****/
 /**** 当前组件的 子组件等 ***/
 
-const socket = io('ws://localhost:9093')
 
+@connect(
+  state => state, { getMsgList }
+)
 class Chat extends Component {
   constructor(props) {
     super(props)
@@ -22,17 +25,18 @@ class Chat extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
-    socket.on('recvmsg', (data) => {
-      // console.log(data)
-      this.setState({
-        msg: [...this.state.msg, data.text]
-      })
-    })
+    // socket.on('recvmsg', (data) => {
+    //   // console.log(data)
+    //   this.setState({
+    //     msg: [...this.state.msg, data.text]
+    //   })
+    // })
+    this.props.getMsgList()
   }
   handleSubmit() {
     // 当前用户发送信息
-    socket.emit('sendmsg', {text: this.state.text})
-    this.setState({text: ''})
+    // socket.emit('sendmsg', {text: this.state.text})
+    this.setState({ text: '' })
   }
   render() {
     return (

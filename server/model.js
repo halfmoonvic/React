@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// 链接mongo 并且使用 imooc 这个集合
+  // 链接mongo 并且使用 imooc 这个集合
 const DB_URL = 'mongodb://localhost:27017/imooc-dev'
 mongoose.connect(DB_URL)
 
@@ -15,7 +15,15 @@ const models = {
     company: { type: String },
     money: { type: String }
   },
-  chat: {}
+  chat: {
+    chatid: { type: String, require: true },
+    from: { type: String, require: true },
+    to: { type: String, require: true },
+    read: { type: Boolean, default: false },
+    content: { type: String, require: true, default: '' },
+    create_time: { type: Number, default: new Date().getTime() },
+
+  }
 }
 
 for (let m in models) {
@@ -23,7 +31,7 @@ for (let m in models) {
 }
 
 module.exports = {
-  getModel: function (name) {
+  getModel: function(name) {
     return mongoose.model(name)
   }
 }

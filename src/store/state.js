@@ -8,3 +8,8 @@ export const initUserState = {
 export const initChatListState = {
   userlist: []
 }
+
+export const initMsgState = {
+  chatmsg: [],
+  unread: 0,
+}

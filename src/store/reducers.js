@@ -45,3 +45,17 @@ export function chatuser(state = states.initChatListState, action) {
       return state
   }
 }
+
+export function chat(state = states.initMsgState, action) {
+  const { type, payload } = action
+  switch (type) {
+    case types.SET_MSG_LIST:
+      return {
+        ...state,
+        chatmsg: payload,
+        unread: payload.filter(v => !v.read).length
+      }
+    default:
+      return state
+  }
+}
