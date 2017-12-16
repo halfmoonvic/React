@@ -13,9 +13,9 @@ import UserCard from 'component/usercard/usercard'
   state => state, { getUserList }
 )
 
-class boss extends Component {
+class Genius extends Component {
   componentDidMount() {
-    this.props.getUserList('genius')
+    this.props.getUserList('boss')
   }
   render() {
     const userList = this.props.chatuser.userlist
@@ -25,4 +25,4 @@ class boss extends Component {
   }
 }
 
-export default boss
+export default Genius
