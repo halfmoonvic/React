@@ -10,8 +10,14 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
+// io 为全局的，socket 当前链接的
 io.on('connection', function (socket) {
   console.log('user login')
+  // 接受自用户发送过来的信息
+  socket.on('sendmsg', function (data) {
+    // 将接受来的信息在发送（emit）出去
+    io.emit('recvmsg', data)
+  })
 })
 
 app.use(cookieParser())
