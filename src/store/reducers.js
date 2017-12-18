@@ -49,11 +49,19 @@ export function chatuser(state = states.initChatListState, action) {
 export function chat(state = states.initMsgState, action) {
   const { type, payload } = action
   switch (type) {
+    case types.SET_MSG_RECV:
+      const n = payload.to === payload.userid ? 1 : 0
+      return {
+        ...state,
+        chatmsg: [...state.chatmsg, payload],
+        unread: state.unread + n
+      }
     case types.SET_MSG_LIST:
       return {
         ...state,
-        chatmsg: payload,
-        unread: payload.filter(v => !v.read).length
+        users: payload.users,
+        chatmsg: payload.msgs,
+        unread: payload.msgs.filter(v => !v.read && v.to ===payload.userid).length
       }
     default:
       return state

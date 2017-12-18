@@ -89,17 +89,41 @@ export function getUserList(type) {
   }
 }
 
-export function setMsgList(msgs) {
+export function setMsgList(msgs, users, userid) {
   return {
     type: types.SET_MSG_LIST,
-    payload: msgs
+    payload: {
+      msgs,
+      users,
+      userid
+    }
   }
 }
 
 export function getMsgList() {
-  return dispatch => {
+  return (dispatch, getState) => {
     xhr.get('/user/getmsglist').then(res => {
-      dispatch(setMsgList(res.data.msgs))
+      const userid = getState().user._id
+      dispatch(setMsgList(res.data.msgs, res.data.users, userid))
+    })
+  }
+}
+
+export function getSendMsg({ from, to, msg }) {
+  return dispatch => {
+    socket.emit('sendmsg', { from, to, msg })
+  }
+}
+
+export function setRecvMsg(msg, userid) {
+  return { type: types.SET_MSG_RECV, payload: msg, userid }
+}
+
+export function getMsgRecv() {
+  return (dispatch, getState) => {
+    socket.on('recvmsg', function(data) {
+      const userid = getState().user._id
+      dispatch(setRecvMsg(data, userid))
     })
   }
 }

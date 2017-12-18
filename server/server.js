@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const userRouter = require('./user')
+const models = require('./model')
+const Chat = models.getModel('chat')
 
 // 新建app
 const app = express()
@@ -15,8 +17,12 @@ io.on('connection', function (socket) {
   console.log('user login')
   // 接受自用户发送过来的信息
   socket.on('sendmsg', function (data) {
-    // 将接受来的信息在发送（emit）出去
-    io.emit('recvmsg', data)
+    const {from, to, msg} = data
+    const chatid = [from, to].sort().join('_')
+    Chat.create({chatid, from, to, content: msg}, function (err, doc) {
+      // 将接受来的信息在发送（emit）出去
+      io.emit('recvmsg', Object.assign({}, doc._doc))
+    })
   })
 })
 

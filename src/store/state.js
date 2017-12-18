@@ -12,4 +12,5 @@ export const initChatListState = {
 export const initMsgState = {
   chatmsg: [],
   unread: 0,
+  users: {}
 }

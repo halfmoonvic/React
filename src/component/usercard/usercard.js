@@ -20,8 +20,7 @@ class UserCard extends Component {
     this.jumpChat = this.jumpChat.bind(this)
   }
   jumpChat(user) {
-    console.log(this.props)
-    this.props.history.push(`/chat/${user.user}`)
+    this.props.history.push(`/chat/${user._id}`)
   }
   render() {
     const { Header, Body } = Card

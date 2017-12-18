@@ -1,8 +1,9 @@
 /**** React应用依赖组件 ****/
 // core
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getMsgList, getMsgRecv } from './../../store/actions.js'
 /******* 第三方 组件库 *****/
 import { NavBar } from 'antd-mobile'
 /**** 本地公用变量 公用函数 **/
@@ -18,9 +19,16 @@ function Msg() {
 }
 
 @connect(
-  state => state
+  state => state,
+  { getMsgList, getMsgRecv }
 )
 class Dashboard extends Component {
+  componentDidMount() {
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgList()
+      this.props.getMsgRecv()
+    }
+  }
   render() {
     const user = this.props.user
     const pathname = this.props.location.pathname
