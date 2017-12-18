@@ -171,3 +171,8 @@ const store = createStore(counter, compose(
 
 ###### 4. 拆分 Reduce
 将 reducer 拆分成不同的 reduce，每个子reduce都在维护着各自的 state。这些state由最大的reduce来创建的。每个子reduce仅是维护着 state 的一个属性。不要妄想两个子reduce间去修改同一个值，因为他们是各自维护的。另外拆分的Reduce只能通过 connect来调用吧
+
+###### 5. 为什么在遍历数组的时候加key
+1. react 需要 key值来甄别当前dom。如果key值发生改变，则更新当前的dom
+2. 不要使用 index 来做key值，因为如果数组发生改变，例如在数组前面插入了一个值，则index还是没有改变的
+3. 如果实在是犯懒，那么就 使用 index+item 的形式来做key值
